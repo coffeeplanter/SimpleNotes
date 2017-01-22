@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/note_margin"
+    android:paddingLeft="@dimen/note_margin"
+    android:paddingRight="@dimen/note_margin"
+    android:paddingTop="@dimen/note_margin"
+    android:background="#FFE4A5"
+    tools:context="ru.geekbrains.lesson7.simplenotes.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:padding="10dp"
+        android:id="@+id/note"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Test note"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/note"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:background="#FFDA85"
+        android:id="@+id/bottom_panel" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/date_last_edited"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Date: 01.01.2017 12:33:21"/>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/delete_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="Delete note"
+            android:src="@drawable/delete"/>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/edit_button"
+            android:layout_toLeftOf="@id/delete_button"
+            android:layout_toStartOf="@id/delete_button"
+            android:contentDescription="Edit note"
+            android:src="@drawable/edit"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
