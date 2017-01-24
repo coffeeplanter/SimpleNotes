@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -35,11 +36,18 @@ public class EditActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("NOTE", editText.getText().toString());
-                intent.putExtra("isNew", isNew);
-                intent.putExtra("POSITION", position);
-                setResult(RESULT_OK, intent);
+                String buffer = editText.getText().toString();
+                if (buffer.length() > 0) {
+                    Intent intent = new Intent();
+                    intent.putExtra("NOTE", buffer);
+                    intent.putExtra("isNew", isNew);
+                    intent.putExtra("POSITION", position);
+                    setResult(RESULT_OK, intent);
+                    Toast.makeText(EditActivity.this, "Note added", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(EditActivity.this, "No text was entered", Toast.LENGTH_SHORT).show();
+                }
                 finish();
             }
         });
@@ -47,6 +55,7 @@ public class EditActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(EditActivity.this, "Edit cancelled", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

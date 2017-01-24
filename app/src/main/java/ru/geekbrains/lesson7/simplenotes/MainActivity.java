@@ -1,6 +1,7 @@
 package ru.geekbrains.lesson7.simplenotes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -12,6 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -20,22 +25,36 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     ListView listView;
     ArrayAdapter<Note> adapter;
+    List<Note> notes;
     static final int REQUEST_CODE_NOTE = 1;
     Button btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         // получаем экземпляр элемента ListView
         listView = (ListView)findViewById(R.id.notes_list);
 
-        List<Note> notes = new ArrayList<>();
+//        notes = new ArrayList<>();
+//        notes.add(new Note("Проверка"));
+//        notes.add(new Note("Проверка 2", Calendar.getInstance()));
+//        notes.add(new Note("Purpose of this tutorial and the project is not developing a perfect commercial application, but providing a basic idea to develop a simple application in Android inorder to apply your knowledge in database and ListView. The application has not been tested completely, so if there are any bugs, please comment below and I will try my best to fix them as soon as possible."));
 
-        notes.add(new Note("Проверка"));
-        notes.add(new Note("Проверка 2", Calendar.getInstance()));
-        notes.add(new Note("Purpose of this tutorial and the project is not developing a perfect commercial application, but providing a basic idea to develop a simple application in Android inorder to apply your knowledge in database and ListView. The application has not been tested completely, so if there are any bugs, please comment below and I will try my best to fix them as soon as possible."));
+        boolean wasRestored = (savedInstanceState != null);
+        if (!wasRestored) {
+            SharedPreferences options = this.getPreferences(MODE_PRIVATE);
+            String json = options.getString("NOTES", "");
+            Gson gson = new Gson();
+            notes = gson.fromJson(json, new TypeToken<List<Note>>(){}.getType());
+        }
+        else {
+            String json = savedInstanceState.getString("NOTES");
+            Gson gson = new Gson();
+            notes = gson.fromJson(json, new TypeToken<List<Note>>(){}.getType());
+        }
 
         // используем адаптер данных
         adapter = new NoteAdapter(this, notes);
@@ -46,8 +65,25 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         btnAdd = (Button) findViewById(R.id.add_button);
         btnAdd.setOnClickListener(this);
+    }
 
+    @Override
+    protected void onStop() {
+        Gson gson = new Gson();
+        String json = gson.toJson(notes);
+        SharedPreferences options = this.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = options.edit();
+        editor.putString("NOTES", json);
+        editor.apply();
+        super.onStop();
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Gson gson = new Gson();
+        String json = gson.toJson(notes);
+        outState.putString("NOTES", json);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
