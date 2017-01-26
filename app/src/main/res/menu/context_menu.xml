@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Add new note"
-        android:id="@+id/add_context">
+        android:title="@string/add_context_menu"
+        android:id="@+id/add_context"
+        android:icon="@android:drawable/ic_menu_add">
     </item>
     <item
-        android:title="Edit note"
-        android:id="@+id/edit_context">
+        android:title="@string/edit_context_menu"
+        android:id="@+id/edit_context"
+        android:icon="@android:drawable/ic_menu_share">
     </item>
     <item
-        android:title="Delete note"
-        android:id="@+id/delete_context">
+        android:title="@string/delete_context_menu"
+        android:id="@+id/delete_context"
+        android:icon="@android:drawable/ic_menu_agenda">
     </item>
     <item
-        android:title="Delete all notes"
-        android:id="@+id/delete_all_context">
+        android:title="@string/delete_all_context_menu"
+        android:id="@+id/delete_all_context"
+        android:icon="@android:drawable/ic_menu_delete">
     </item>
 </menu>

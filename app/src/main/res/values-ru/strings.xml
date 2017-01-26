@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Заметки</string>
+    <string name="add_button">Добавить заметку</string>
+    <string name="save_button">Сохранить</string>
+    <string name="note_context_menu">Заметка</string>
+    <string name="add_context_menu">Добавить новую</string>
+    <string name="edit_context_menu">Изменить</string>
+    <string name="delete_context_menu">Удалить</string>
+    <string name="delete_all_context_menu">Удалить</string>
+</resources>

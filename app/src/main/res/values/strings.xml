@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Simple Notes</string>
+    <string name="add_button">Add new note</string>
+    <string name="save_button">Save</string>
+    <string name="note_context_menu">Note</string>
+    <string name="add_context_menu">Add new</string>
+    <string name="edit_context_menu">Edit</string>
+    <string name="delete_context_menu">Delete</string>
+    <string name="delete_all_context_menu">Delete all</string>
 </resources>
