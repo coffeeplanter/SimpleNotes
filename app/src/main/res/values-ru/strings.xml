@@ -12,4 +12,13 @@
     <string name="delete_all_context_menu">Удалить</string>
     <string name="stop_voice_button">Остановить</string>
     <string name="change_color_context_menu">Изменить цвет</string>
+    <string name="copied_to_clipboard_toast">Скопировано в буфер</string>
+    <string name="deleted_successfully_toast">Удалено</string>
+    <string name="edit_cancelled_toast">Редактирование отменено</string>
+    <string name="no_text_was_entered_toast">Ничего не было введено</string>
+    <string name="note_added_toast">Заметка добавлена</string>
+    <string name="note_date_last_edited">"Изменено: "</string>
+    <string name="notes_selected_number">"Выбрано заметок: "</string>
+    <string name="note_deleted_toast">Заметка удалена</string>
+    <string name="voice_listening_stopped_toast">Голосовой ввод прекращён</string>
 </resources>

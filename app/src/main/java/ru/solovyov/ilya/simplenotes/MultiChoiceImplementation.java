@@ -63,7 +63,7 @@ class MultiChoiceImplementation implements AbsListView.MultiChoiceModeListener {
                 }
                 actionMode.finish();
                 parentActivity.adapter.notifyDataSetChanged();
-                Toast.makeText(parentActivity, "Deleted successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(parentActivity, R.string.deleted_successfully_toast, Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return false;
@@ -82,7 +82,7 @@ class MultiChoiceImplementation implements AbsListView.MultiChoiceModeListener {
                 mode.setSubtitle(null);
                 break;
             default:
-                mode.setTitle("Выбрано заметок: " + String.valueOf(selectedCount));
+                mode.setTitle(SimpleNotesApplication.getResourceStringNotesSelectedNumber() + String.valueOf(selectedCount));
                 break;
         }
     }

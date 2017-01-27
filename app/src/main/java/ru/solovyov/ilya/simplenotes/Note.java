@@ -1,5 +1,8 @@
 package ru.solovyov.ilya.simplenotes;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -35,7 +38,7 @@ class Note {
 
     String getFormattedDate() {
         SimpleDateFormat formattedDate= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
-        return "Last edited: " + formattedDate.format(date_last_edited.getTime());
+        return SimpleNotesApplication.getResourceStringNoteDateLastEdited() + formattedDate.format(date_last_edited.getTime());
     }
 
 }

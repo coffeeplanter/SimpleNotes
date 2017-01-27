@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar; // Визуальные компоненты объявлены здесь для доступа из других классов
     NoteAdapter adapter; // экземпляр адаптера
     List<Note> notes; // Контейнер для данных
+    SpeechRecognizer speechRecognizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
             application_mode = RESTORED_ACTIVITY_MODE;
         }
         Log.d(TAG, "applicaion_mode: " + application_mode);
-        Log.d(TAG, "json: " + json);
 
         // Получаем экземпляр элемента ListView
         listView = (ListView)findViewById(android.R.id.list);
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Подготовка обработки голосового ввода
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
-        final SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(this, adapter));
 
         // Готовим интент для голосового ввода
@@ -137,13 +137,15 @@ public class MainActivity extends AppCompatActivity {
         buttonVoiceAdd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                SpeechRecognizer innerSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(MainActivity.this);
+//                innerSpeechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(MainActivity.this, adapter));
                 if (isChecked) {
                     speechRecognizer.startListening(intent);
                     Log.d(TAG, "onResults");
                 }
                 else {
                     speechRecognizer.stopListening();
-                    Toast.makeText(MainActivity.this, "Voice listening stopped", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.voice_listening_stopped_toast, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     // Сохраняем список заметок в настройках
     @Override
     protected void onStop() {
+        Log.d(TAG, "onStop");
         // Сортируем коллекцию по убыванию даты
         if (notes != null) {
             Collections.sort(notes, new Comparator<Note>() {
@@ -168,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = options.edit();
         editor.putString("NOTES", json);
         editor.apply();
+        speechRecognizer.destroy();
         super.onStop();
     }
 
@@ -202,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(label, textToCopy);
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.copied_to_clipboard_toast, Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.edit_context:
                 Intent intent = new Intent(this, EditActivity.class);
@@ -212,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.delete_context:
                 adapter.remove(adapter.getItem(info.position));
-                Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.note_deleted_toast, Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -246,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
