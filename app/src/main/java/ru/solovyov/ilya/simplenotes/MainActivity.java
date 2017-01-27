@@ -137,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
         buttonVoiceAdd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                SpeechRecognizer innerSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(MainActivity.this);
-//                innerSpeechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(MainActivity.this, adapter));
                 if (isChecked) {
                     speechRecognizer.startListening(intent);
                     Log.d(TAG, "onResults");

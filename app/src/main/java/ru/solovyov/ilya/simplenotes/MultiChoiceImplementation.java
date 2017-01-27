@@ -53,11 +53,9 @@ class MultiChoiceImplementation implements AbsListView.MultiChoiceModeListener {
         switch (menuItem.getItemId()) {
             case R.id.delete_all_action:
                 SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
-                Log.d(TAG, sparseBooleanArray.toString());
                 // Перебираем с конца, чтобы не нарушать порядок нумерации в списке
                 for (int i = (sparseBooleanArray.size() - 1); i >= 0; i--) {
                     if (sparseBooleanArray.valueAt(i)) {
-                        Log.d(TAG, "" + i + " " + sparseBooleanArray.keyAt(i) + " " + sparseBooleanArray.valueAt(i) + " " + sparseBooleanArray.get(i));
                         parentActivity.notes.remove(sparseBooleanArray.keyAt(i));
                     }
                 }

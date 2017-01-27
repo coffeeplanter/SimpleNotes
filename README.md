@@ -15,4 +15,4 @@ Ths is a simple Android notes editor.
 
 ## Screenshot
 
-![Screenshot](/Screenshot.gif?raw=true "Screenshot")
+![Screenshot](/screenshot.gif?raw=true "Screenshot")

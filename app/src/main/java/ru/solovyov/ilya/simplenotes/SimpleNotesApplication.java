@@ -21,7 +21,7 @@ public class SimpleNotesApplication extends Application {
     }
 
     public static String getResourceStringNotesSelectedNumber() {
-        return resourceStringNoteDateLastEdited;
+        return resourceStringNotesSelectedNumber;
     }
 
 }
