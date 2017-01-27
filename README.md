@@ -1,8 +1,10 @@
 # Simple Notes
-==============
+
 Ths is a simple Android notes editor.
 
-[![Build Status](/badge.svg)](https://github.com/coffeeplanter/SimpleNotes)
+[//]: # [![Build Status](/badge.svg?raw=true)](https://github.com/coffeeplanter/SimpleNotes)
+
+## Screenshot
 
 ![Screenshot](/Screenshot.gif?raw=true "Screenshot")
 
@@ -15,4 +17,4 @@ Ths is a simple Android notes editor.
 
 * Settings activity.
 * Voice input in various languages.
-* App grahics update.
+* Application graphics update.
