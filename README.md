@@ -2,8 +2,6 @@
 
 Ths is a simple Android notes editor.
 
-![Build Status](/badge.svg "Build status")
-
 ## Screenshot
 
 ![Screenshot](/Screenshot.gif?raw=true "Screenshot")
