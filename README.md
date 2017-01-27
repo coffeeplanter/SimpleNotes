@@ -1,8 +1,3 @@
-# Simple Notes
-Ths is a simple Android notes editor.
-
-![Screenhot](/Screenshot.gif?raw=true "Screenshot")
-
 ---
 title: Solarized
 description: Precision colors for machines and people
@@ -10,11 +5,16 @@ author: Ethan Schoonover tags: test, testing, test123
 colors: light yellow
 created: 2011 Mar 15
 modified: 2011 Apr 16
-
 ---
 
 Solarized
 =========
+
+# Simple Notes
+Ths is a simple Android notes editor.
+
+![Screenhot](/Screenshot.gif?raw=true "Screenshot")
+
 
 ## Precision colors for machines and people
 
