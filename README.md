@@ -2,7 +2,7 @@
 
 Ths is a simple Android notes editor.
 
-[//]: # [![Build Status](/badge.svg?raw=true)](https://github.com/coffeeplanter/SimpleNotes)
+[//]: <> [![Build Status](/badge.svg?raw=true)](https://github.com/coffeeplanter/SimpleNotes)
 
 ## Screenshot
 
