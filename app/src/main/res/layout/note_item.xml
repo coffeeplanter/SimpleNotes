@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/note_margin"
     android:paddingTop="@dimen/note_margin"
     android:background="?android:attr/activatedBackgroundIndicator"
-    tools:context="ru.geekbrains.lesson7.simplenotes.MainActivity">
+    tools:context="ru.solovyov.ilya.simplenotes.MainActivity">
 
     <TextView
         android:id="@+id/date_last_edited"

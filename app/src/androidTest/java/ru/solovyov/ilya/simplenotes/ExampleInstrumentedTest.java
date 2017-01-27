@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson7.simplenotes;
+package ru.solovyov.ilya.simplenotes;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

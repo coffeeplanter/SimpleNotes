@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Заметки</string>
-    <string name="add_button">Добавить заметку</string>
+    <string name="add_by_text_button">Написать</string>
+    <string name="add_by_voice_button">Сказать</string>
     <string name="save_button">Сохранить</string>
     <string name="note_context_menu">Заметка</string>
     <string name="add_context_menu">Добавить новую</string>
-    <string name="edit_context_menu">Изменить</string>
+    <string name="copy_context_menu">Копировать в буфер</string>
+    <string name="edit_context_menu">Редактировать</string>
     <string name="delete_context_menu">Удалить</string>
     <string name="delete_all_context_menu">Удалить</string>
+    <string name="stop_voice_button">Остановить</string>
+    <string name="change_color_context_menu">Изменить цвет</string>
 </resources>

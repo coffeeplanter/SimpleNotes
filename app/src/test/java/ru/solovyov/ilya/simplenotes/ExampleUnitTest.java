@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson7.simplenotes;
+package ru.solovyov.ilya.simplenotes;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson7.simplenotes;
+package ru.solovyov.ilya.simplenotes;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -6,6 +6,7 @@ import java.util.Locale;
 
 class Note {
 
+    public static final String TAG = "Note";
     private String note;
     private Calendar date_last_edited;
 

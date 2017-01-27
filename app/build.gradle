@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "ru.geekbrains.lesson7.simplenotes"
+        applicationId 'ru.solovyov.ilya.simplenotes'
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
@@ -27,6 +27,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.google.code.gson:gson:2.4'
     //compile 'com.google.code.gson:gson:2.8'
 }

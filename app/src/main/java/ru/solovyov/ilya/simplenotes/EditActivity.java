@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson7.simplenotes;
+package ru.solovyov.ilya.simplenotes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// Класс активности для редактирования заметки
+
 public class EditActivity extends AppCompatActivity {
+
+    public static final String TAG = "EditActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,8 +34,8 @@ public class EditActivity extends AppCompatActivity {
             isNew = true;
         }
 
-        Button btnSave = (Button) findViewById(R.id.btnSave);
-        Button btnCancel = (Button) findViewById(R.id.btnCancel);
+        Button btnSave = (Button) findViewById(R.id.save_button);
+        Button btnCancel = (Button) findViewById(R.id.cancel_button);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

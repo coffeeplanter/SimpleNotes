@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/delete_all_context"
+        android:id="@+id/delete_all_action"
         android:title="@string/delete_all_context_menu"
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="1"

@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Simple Notes</string>
-    <string name="add_button">Add new note</string>
+    <string name="add_by_text_button">Write</string>
+    <string name="add_by_voice_button">Speak</string>
     <string name="save_button">Save</string>
     <string name="note_context_menu">Note</string>
     <string name="add_context_menu">Add new</string>
+    <string name="copy_context_menu">Copy to clipboard</string>
     <string name="edit_context_menu">Edit</string>
     <string name="delete_context_menu">Delete</string>
     <string name="delete_all_context_menu">Delete all</string>
+    <string name="stop_voice_button">Stop</string>
+    <string name="change_color_context_menu">Change color</string>
 </resources>
