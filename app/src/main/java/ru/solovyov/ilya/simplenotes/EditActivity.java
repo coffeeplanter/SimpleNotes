@@ -47,7 +47,6 @@ public class EditActivity extends AppCompatActivity {
                     intent.putExtra("isNew", isNew);
                     intent.putExtra("POSITION", position);
                     setResult(RESULT_OK, intent);
-                    Toast.makeText(EditActivity.this, R.string.note_added_toast, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(EditActivity.this, R.string.no_text_was_entered_toast, Toast.LENGTH_SHORT).show();

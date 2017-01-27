@@ -169,8 +169,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = options.edit();
         editor.putString("NOTES", json);
         editor.apply();
-        speechRecognizer.destroy();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "onStop");
+        speechRecognizer.destroy();
+        super.onDestroy();
     }
 
     // Сохраняем текущий список заметок при уничтожении активности, вызванном системой
@@ -228,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
             String noteText = data.getStringExtra("NOTE");
             Boolean isNew = data.getBooleanExtra("isNew", true);
             int position = data.getIntExtra("POSITION", -1);
+            // Если создаётся новая заметка
             if (isNew) {
                 if (noteText != null) {
                     if (notes == null) {
@@ -240,12 +247,24 @@ public class MainActivity extends AppCompatActivity {
                         notes.add(0, new Note(noteText));
                     }
                     adapter.notifyDataSetChanged();
+                    Toast.makeText(this, R.string.note_added_toast, Toast.LENGTH_SHORT).show();
                     listView.smoothScrollToPosition(0);
                 }
             }
+            // Если редактируется существующая заметка
             else {
                 adapter.getItem(position).setText(noteText);
+                if (notes != null) {
+                    Collections.sort(notes, new Comparator<Note>() {
+                        @Override
+                        public int compare(Note note, Note t1) {
+                            return t1.getDate().compareTo(note.getDate());
+                        }
+                    });
+                }
                 adapter.notifyDataSetChanged();
+                Toast.makeText(this, R.string.note_edited_toast, Toast.LENGTH_SHORT).show();
+                listView.smoothScrollToPosition(0);
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

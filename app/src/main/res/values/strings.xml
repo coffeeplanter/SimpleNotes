@@ -20,4 +20,5 @@
     <string name="deleted_successfully_toast">Deleted successfully</string>
     <string name="note_date_last_edited">"Last edited: "</string>
     <string name="notes_selected_number">"Notes selected: "</string>
+    <string name="note_edited_toast">Note edited</string>
 </resources>
