@@ -13,6 +13,8 @@ Solarized
 # Simple Notes
 Ths is a simple Android notes editor.
 
+[![Build Status](https://travis-ci.org/google/gson.svg?branch=master)](https://travis-ci.org/google/gson)
+
 ![Screenhot](/Screenshot.gif?raw=true "Screenshot")
 
 
