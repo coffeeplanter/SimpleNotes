@@ -2,7 +2,7 @@
 
 Ths is a simple Android notes editor.
 
-![Build Status](/badge.svg?raw=true "Build status")
+![Build Status](/badge.svg "Build status")
 
 ## Screenshot
 
