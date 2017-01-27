@@ -16,10 +16,8 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         // Устанавливаем режим создания активности
         SharedPreferences options = this.getPreferences(MODE_PRIVATE);
         String json = options.getString("NOTES", "");
-        if ((json.equals("")) || (json == null)) {
+        if ((json.equals(""))) {
             // Приложение запускаем первый раз или если нет файла настроек
             application_mode = FIRST_LAUNCH_MODE;
         }
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         // Получаем экземпляр элемента ListView
         listView = (ListView)findViewById(android.R.id.list);
 
-        Gson gson = null;
+        Gson gson;
 
         switch (application_mode) {
             case FIRST_LAUNCH_MODE:
