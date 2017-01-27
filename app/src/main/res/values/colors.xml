@@ -11,4 +11,7 @@
     <color name="colorBackground">#fff5f3d3</color>
     <color name="colorPrimaryLightest">#66A16952</color>
     <color name="colorPrimaryLight">#A16952</color>
+    <color name="colorButtonStroke">#83776b</color>
+    <color name="colorButtonEnd">#92806c</color>
+    <color name="colorButtonEndPressed">#cbb59d</color>
 </resources>

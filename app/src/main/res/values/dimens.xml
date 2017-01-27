@@ -2,5 +2,23 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="buttons_top_margin">2dp</dimen>
+    <dimen name="buttons_margin">1dp</dimen>
+    <dimen name="listview_margin">2dp</dimen>
+    <dimen name="listview_top_margin">4dp</dimen>
+    <dimen name="listview_bottom_margin">0dp</dimen>
+    <dimen name="listview_divider_height">6dp</dimen>
+    <dimen name="editor_bottom_padding">1dp</dimen>
     <dimen name="note_margin">0dp</dimen>
+    <dimen name="note_text_bottom_margin">20dp</dimen>
+    <dimen name="note_text_right_margin">10dp</dimen>
+    <dimen name="note_date_top_margin">15dp</dimen>
+    <dimen name="note_date_bottom_margin">10dp</dimen>
+    <dimen name="note_date_padding">10dp</dimen>
+    <dimen name="button_radius">3dp</dimen>
+    <dimen name="button_stroke">1dp</dimen>
+    <dimen name="note_radius">10dp</dimen>
+    <dimen name="note_stroke">1dp</dimen>
+    <dimen name="note_stroke_activated">2dp</dimen>
 </resources>

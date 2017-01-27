@@ -11,4 +11,13 @@
     <string name="delete_all_context_menu">Delete all</string>
     <string name="stop_voice_button">Stop</string>
     <string name="change_color_context_menu">Change color</string>
+    <string name="copied_to_clipboard_toast">Copied to clipboard</string>
+    <string name="note_deleted_toast">Note deleted</string>
+    <string name="voice_listening_stopped_toast">Voice listening stopped</string>
+    <string name="note_added_toast">Note added</string>
+    <string name="no_text_was_entered_toast">No text was entered</string>
+    <string name="edit_cancelled_toast">Edit cancelled</string>
+    <string name="deleted_successfully_toast">Deleted successfully</string>
+    <string name="note_date_last_edited">"Last edited: "</string>
+    <string name="notes_selected_number">"Notes selected: "</string>
 </resources>
