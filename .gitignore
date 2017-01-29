@@ -43,3 +43,6 @@ captures/
 /.idea/libraries
 .DS_Store
 .externalNativeBuild
+.idea/markdown-navigator.xml
+.idea/markdown-navigator/
+app/libs/

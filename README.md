@@ -5,13 +5,16 @@ Ths is a simple Android notes editor.
 ## Features
 
 * Simple and comfortable adding, editing, and deleting notes.
-* Voice input included.
+* Voice input.
+* Nice interface.
 
 ## TODO list
 
 * Settings activity.
 * Voice input in various languages.
-* Application graphics update.
+* UI improvements.
+* Confirm dialogs.
+* Data keeping in database.
 
 ## Screenshot
 
