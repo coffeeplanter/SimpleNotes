@@ -15,13 +15,9 @@ import java.util.ArrayList;
 class VoiceRecognitionImplementation implements RecognitionListener {
 
     private static final String TAG = "VRecognitionListener";
-    //private NoteAdapter adapter;
-    //private Context parentContext;
     private MainActivity parentActivity;
 
     VoiceRecognitionImplementation(Context context) {
-        //this.adapter = adapter;
-        //this.parentContext = context;
         this.parentActivity = (MainActivity) context;
     }
 
