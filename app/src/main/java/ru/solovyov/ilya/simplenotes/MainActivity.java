@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             Collections.sort(notes, new Comparator<Note>() {
                 @Override
                 public int compare(Note note, Note t1) {
-                    return t1.getDate().compareTo(note.getDate());
+                    return t1.getLastEditedDate().compareTo(note.getLastEditedDate());
                 }
             });
         }
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(notes, new Comparator<Note>() {
                         @Override
                         public int compare(Note note, Note t1) {
-                            return t1.getDate().compareTo(note.getDate());
+                            return t1.getLastEditedDate().compareTo(note.getLastEditedDate());
                         }
                     });
                 }

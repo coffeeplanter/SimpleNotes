@@ -11,16 +11,17 @@ class Note {
 
     public static final String TAG = "Note";
     private String note;
+    private Calendar date_created;
     private Calendar date_last_edited;
 
     Note(String note) {
         this.note = note;
-        this.date_last_edited = Calendar.getInstance();
+        this.date_last_edited = this.date_created = Calendar.getInstance();
     }
 
     Note(String note, Calendar date) {
         this.note = note;
-        this.date_last_edited = date;
+        this.date_last_edited = this.date_created = date;
     }
 
     void setText(String text) {
@@ -32,11 +33,15 @@ class Note {
         return this.note;
     }
 
-    Calendar getDate() {
+    Calendar getCreatedDate() {
+        return this.date_created;
+    }
+
+    Calendar getLastEditedDate() {
         return this.date_last_edited;
     }
 
-    String getFormattedDate() {
+    String getLastEditedFormattedDate() {
         SimpleDateFormat formattedDate= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         return SimpleNotesApplication.getResourceStringNoteDateLastEdited() + formattedDate.format(date_last_edited.getTime());
     }

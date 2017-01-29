@@ -54,7 +54,7 @@ class NoteAdapter extends ArrayAdapter<Note> {
 
         assert note != null;
         viewHolder.note.setText(note.getText());
-        viewHolder.date_last_edited.setText(note.getFormattedDate());
+        viewHolder.date_last_edited.setText(note.getLastEditedFormattedDate());
 
         return convertView;
     }
