@@ -22,4 +22,5 @@
     <string name="note_deleted_toast">Заметка удалена</string>
     <string name="voice_listening_stopped_toast">Голосовой ввод прекращён</string>
     <string name="note_edited_toast">Заметка изменена</string>
+    <string name="voice_edit_context_menu">Дополнить голосом</string>
 </resources>

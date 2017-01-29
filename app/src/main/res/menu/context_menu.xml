@@ -9,6 +9,10 @@
         android:id="@+id/edit_context" >
     </item>
     <item
+        android:title="@string/voice_edit_context_menu"
+        android:id="@+id/voice_edit_context" >
+    </item>
+    <item
         android:title="@string/delete_context_menu"
         android:id="@+id/delete_context" >
     </item>

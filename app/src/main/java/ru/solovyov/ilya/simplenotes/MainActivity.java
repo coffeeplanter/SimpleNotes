@@ -218,6 +218,10 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("POSITION", info.position);
                 startActivityForResult(intent, MainActivity.REQUEST_CODE_NOTE);
                 return true;
+            case R.id.voice_edit_context:
+                // TODO
+                Toast.makeText(this, "To be implemented.", Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.delete_context:
                 adapter.remove(adapter.getItem(info.position));
                 Toast.makeText(this, R.string.note_deleted_toast, Toast.LENGTH_SHORT).show();
