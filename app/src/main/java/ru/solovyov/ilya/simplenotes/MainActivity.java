@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
 
         // Режим запуска приложений для инициалиации данных
         int application_mode;
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         // Подготовка обработки голосового ввода
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        speechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(this, adapter));
+        speechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(this));
 
         // Готовим интент для голосового ввода
         final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

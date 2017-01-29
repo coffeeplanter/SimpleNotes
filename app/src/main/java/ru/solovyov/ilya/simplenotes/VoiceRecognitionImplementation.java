@@ -15,12 +15,12 @@ import java.util.ArrayList;
 class VoiceRecognitionImplementation implements RecognitionListener {
 
     private static final String TAG = "VRecognitionListener";
-    private NoteAdapter adapter;
+    //private NoteAdapter adapter;
     //private Context parentContext;
     private MainActivity parentActivity;
 
-    VoiceRecognitionImplementation(Context context, NoteAdapter adapter) {
-        this.adapter = adapter;
+    VoiceRecognitionImplementation(Context context) {
+        //this.adapter = adapter;
         //this.parentContext = context;
         this.parentActivity = (MainActivity) context;
     }
@@ -85,13 +85,13 @@ class VoiceRecognitionImplementation implements RecognitionListener {
             if (parentActivity.notes == null) {
                 parentActivity.notes = new ArrayList<>();
                 parentActivity.notes.add(new Note(noteText));
-                adapter = new NoteAdapter(parentActivity, R.layout.note_item, parentActivity.notes);
-                parentActivity.listView.setAdapter(adapter);
+                parentActivity.adapter = new NoteAdapter(parentActivity, R.layout.note_item, parentActivity.notes);
+                parentActivity.listView.setAdapter(parentActivity.adapter);
             }
             else {
                 parentActivity.notes.add(0, new Note(noteText));
             }
-            adapter.notifyDataSetChanged();
+            parentActivity.adapter.notifyDataSetChanged();
             parentActivity.listView.smoothScrollToPosition(0);
         }
         parentActivity.progressBar.setVisibility(View.INVISIBLE);
