@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -16,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(this));
 
+        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_linearlayout);
+
         // Готовим интент для голосового ввода
         final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -138,11 +142,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    linearLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorVoiceRecording));
                     speechRecognizer.startListening(intent);
                     Log.d(TAG, "onResults");
                 }
                 else {
+                    linearLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorBackground));
                     speechRecognizer.stopListening();
+                    listView.smoothScrollToPosition(0);
                     Toast.makeText(MainActivity.this, R.string.voice_listening_stopped_toast, Toast.LENGTH_SHORT).show();
                 }
             }

@@ -14,4 +14,5 @@
     <color name="colorButtonStroke">#83776b</color>
     <color name="colorButtonEnd">#92806c</color>
     <color name="colorButtonEndPressed">#cbb59d</color>
+    <color name="colorVoiceRecording">#d3bca0</color>
 </resources>

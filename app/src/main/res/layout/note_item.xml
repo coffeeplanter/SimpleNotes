@@ -4,10 +4,7 @@
     android:id="@+id/note_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/note_margin"
-    android:paddingLeft="@dimen/note_margin"
-    android:paddingRight="@dimen/note_margin"
-    android:paddingTop="@dimen/note_margin"
+    android:padding="@dimen/note_margin"
     android:background="?android:attr/activatedBackgroundIndicator"
     tools:context="ru.solovyov.ilya.simplenotes.MainActivity">
 
@@ -19,18 +16,23 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="end"
-        android:layout_marginBottom="@dimen/note_text_bottom_margin"
-        android:layout_marginRight="@dimen/note_text_right_margin"
-        android:layout_marginEnd="@dimen/note_text_right_margin"
+        android:layout_marginTop="@dimen/note_date_top_margin"
+        android:layout_marginRight="@dimen/note_date_right_margin"
+        android:layout_marginEnd="@dimen/note_date_right_margin"
+        android:layout_marginBottom="@dimen/note_date_bottom_margin"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/note_date_top_margin"
-        android:layout_marginBottom="@dimen/note_date_bottom_margin"
-        android:padding="@dimen/note_date_padding"
+        android:layout_below="@id/date_last_edited"
+        android:layout_marginTop="@dimen/note_text_top_margin"
+        android:layout_marginRight="@dimen/note_text_right_margin"
+        android:layout_marginEnd="@dimen/note_text_right_margin"
+        android:layout_marginLeft="@dimen/note_text_right_margin"
+        android:layout_marginStart="@dimen/note_text_right_margin"
+        android:layout_marginBottom="@dimen/note_text_bottom_margin"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

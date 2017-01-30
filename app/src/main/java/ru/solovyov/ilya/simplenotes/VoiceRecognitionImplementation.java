@@ -88,11 +88,9 @@ class VoiceRecognitionImplementation implements RecognitionListener {
                 parentActivity.notes.add(0, new Note(noteText));
             }
             parentActivity.adapter.notifyDataSetChanged();
-            parentActivity.listView.smoothScrollToPosition(0);
         }
         parentActivity.progressBar.setVisibility(View.INVISIBLE);
         parentActivity.buttonVoiceAdd.setChecked(false);
-        parentActivity.listView.smoothScrollToPosition(0);
     }
 
 }

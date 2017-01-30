@@ -14,18 +14,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="@dimen/editor_bottom_padding"
+        android:padding="@dimen/editor_bottom_padding"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/button_min_size"
             android:layout_gravity="bottom"
-            android:layout_marginRight="@dimen/buttons_margin"
-            android:layout_marginEnd="@dimen/buttons_margin"
-            android:layout_marginLeft="@dimen/buttons_margin"
-            android:layout_marginStart="@dimen/buttons_margin"
+            android:layout_marginRight="@dimen/buttons_right_margin"
+            android:layout_marginEnd="@dimen/buttons_right_margin"
             android:layout_weight="1"
             android:text="@android:string/cancel"
             android:background="@drawable/button_background" />
@@ -34,9 +33,8 @@
             android:id="@+id/save_button"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
+            android:minHeight="@dimen/button_min_size"
             android:layout_gravity="bottom"
-            android:layout_marginRight="@dimen/buttons_margin"
-            android:layout_marginEnd="@dimen/buttons_margin"
             android:layout_weight="1"
             android:text="@string/save_button"
             android:background="@drawable/button_background" />
