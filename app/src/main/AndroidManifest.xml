@@ -11,13 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".SimpleNotesApplication">
-        <activity android:name="ru.solovyov.ilya.simplenotes.MainActivity">
+        <activity android:name="ru.solovyov.ilya.simplenotes.MainActivity"
+            android:configChanges="orientation|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ru.solovyov.ilya.simplenotes.EditActivity">
+        <activity android:name="ru.solovyov.ilya.simplenotes.EditActivity"
+            >
         </activity>
     </application>
 

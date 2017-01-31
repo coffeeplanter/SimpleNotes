@@ -1,5 +1,7 @@
 package ru.solovyov.ilya.simplenotes;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -10,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 // Класс обработки множественного выбора элементов ListView
 
@@ -50,9 +54,10 @@ class MultiChoiceImplementation implements AbsListView.MultiChoiceModeListener {
 
     @Override
     public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
         switch (menuItem.getItemId()) {
             case R.id.delete_all_action:
-                SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
+                //SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
                 // Перебираем с конца, чтобы не нарушать порядок нумерации в списке
                 for (int i = (sparseBooleanArray.size() - 1); i >= 0; i--) {
                     if (sparseBooleanArray.valueAt(i)) {
@@ -63,6 +68,21 @@ class MultiChoiceImplementation implements AbsListView.MultiChoiceModeListener {
                 parentActivity.adapter.notifyDataSetChanged();
                 parentActivity.listView.smoothScrollToPosition(0);
                 Toast.makeText(parentActivity, R.string.deleted_successfully_toast, Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.copy_all_action:
+                StringBuilder textToCopy = new StringBuilder("");
+                String label = "Notes text";
+                for (int i = 0; i < sparseBooleanArray.size(); i++) {
+                    if (sparseBooleanArray.valueAt(i)) {
+                        textToCopy.append(parentActivity.notes.get(sparseBooleanArray.keyAt(i)).getText());
+                        textToCopy.append("\n");
+                    }
+                }
+                ClipboardManager clipboard = (ClipboardManager) parentActivity.getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText(label, textToCopy.toString());
+                clipboard.setPrimaryClip(clip);
+                actionMode.finish();
+                Toast.makeText(parentActivity, R.string.copied_to_clipboard_toast, Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return false;

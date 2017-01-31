@@ -9,7 +9,6 @@
     <string name="copy_context_menu">Копировать в буфер</string>
     <string name="edit_context_menu">Редактировать</string>
     <string name="delete_context_menu">Удалить</string>
-    <string name="delete_all_context_menu">Удалить</string>
     <string name="stop_voice_button">Остановить</string>
     <string name="change_color_context_menu">Изменить цвет</string>
     <string name="copied_to_clipboard_toast">Скопировано в буфер</string>
@@ -23,4 +22,9 @@
     <string name="voice_listening_stopped_toast">Голосовой ввод прекращён</string>
     <string name="note_edited_toast">Заметка изменена</string>
     <string name="voice_edit_context_menu">Дополнить голосом</string>
+    <string name="delete_all_action_menu">Удалить</string>
+    <string name="copy_all_action_menu">Копировать выбранные</string>
+    <string name="about_application">О приложении</string>
+    <string name="settings">Настройки</string>
+    <string name="about_app_text">"Это приложение позволяет Вам хранить заметки, добавляя и изменяя их с помощью клавиатуры или голосового ввода.\n\nПриложение написано Ильёй Соловьёвым с целью освоения разработки под среду Android. Оно абсолютно бесплатно, без рекламы^ и распространяется на условиях лицензии GNU 3.0.\n\nПрисылайте любые замечания на почту: is3k@ya.ru"</string>
 </resources>

@@ -86,6 +86,7 @@ class VoiceRecognitionImplementation implements RecognitionListener {
         if (noteText != null) {
             // Обработка голосовой команды "Новая строка"
             noteText = noteText.replaceAll("(?i)" + "(^|\\s)" + Pattern.quote("новая строка") + "($|\\s)", "\n");
+            noteText = noteText.replaceAll("(?i)" + Pattern.quote("пробел") + "($|\\s)", " ");
             switch (currentMode) {
                 case ADD_NEW_NOTE:
                     if (parentActivity.notes == null) {

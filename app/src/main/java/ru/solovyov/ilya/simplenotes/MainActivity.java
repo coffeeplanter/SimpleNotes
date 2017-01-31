@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -192,6 +193,26 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onStop");
         speechRecognizer.destroy();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.open_settings_activity:
+                Toast.makeText(this, "Настройки в процессе разработки", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.open_activity_about:
+                Toast.makeText(this, "Раздел в процессе разработки", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     // Сохраняем текущий список заметок при уничтожении активности, вызванном системой

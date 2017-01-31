@@ -5,7 +5,9 @@ Ths is a simple Android notes editor.
 ## Features
 
 * Simple and comfortable adding, editing, and deleting notes.
+* Multichoice mode.
 * Voice input.
+* Voice commands in Russian ("Новая строка", Точка", "Запятая", "Восклицательный знак", "Вопросительный знак", "Пробел").
 * Nice interface.
 
 ## TODO list

@@ -8,7 +8,8 @@
     <string name="copy_context_menu">Copy to clipboard</string>
     <string name="edit_context_menu">Edit</string>
     <string name="delete_context_menu">Delete</string>
-    <string name="delete_all_context_menu">Delete all</string>
+    <string name="copy_all_action_menu">Copy all</string>
+    <string name="delete_all_action_menu">Delete all</string>
     <string name="stop_voice_button">Stop</string>
     <string name="change_color_context_menu">Change color</string>
     <string name="copied_to_clipboard_toast">Copied to clipboard</string>
@@ -22,4 +23,7 @@
     <string name="notes_selected_number">"Notes selected: "</string>
     <string name="note_edited_toast">Note edited</string>
     <string name="voice_edit_context_menu">Update by voice</string>
+    <string name="settings">Settings</string>
+    <string name="about_application">About</string>
+    <string name="about_app_text">"This application allows you to keep simple notes, adding and editing them by keyboard or voice input.\n\nThe application was developed by Ilya Solovyov with the purpose to learn development process under Android. It's absolutely freeware, contains no ads, and licensed under GNU 3.0 conditions.\n\nSend any comments by this e-mail please: is3k@ya.ru"</string>
 </resources>
