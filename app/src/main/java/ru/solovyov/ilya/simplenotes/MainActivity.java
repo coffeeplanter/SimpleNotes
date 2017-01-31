@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.speech.tts.Voice;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     NoteAdapter adapter; // экземпляр адаптера
     List<Note> notes; // Контейнер для данных
     SpeechRecognizer speechRecognizer;
+    VoiceRecognitionImplementation addRecognitionListener;
+    VoiceRecognitionImplementation changeRecognitionListener;
+    Intent voiceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,16 +127,18 @@ public class MainActivity extends AppCompatActivity {
         // Подготовка обработки голосового ввода
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        speechRecognizer.setRecognitionListener(new VoiceRecognitionImplementation(this));
+        addRecognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.ADD_NEW_NOTE);
+        changeRecognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.CHANGE_NOTE);
+        speechRecognizer.setRecognitionListener(addRecognitionListener);
 
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_linearlayout);
 
         // Готовим интент для голосового ввода
-        final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
-        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
-        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
+        voiceIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
         //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "de"); // Установка других языков
 
         // Назначаем слушатель кнопке голосового добавления заметки
@@ -143,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     linearLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorVoiceRecording));
-                    speechRecognizer.startListening(intent);
+                    speechRecognizer.startListening(voiceIntent);
                     Log.d(TAG, "onResults");
                 }
                 else {
@@ -226,8 +232,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, MainActivity.REQUEST_CODE_NOTE);
                 return true;
             case R.id.voice_edit_context:
-                // TODO
-                Toast.makeText(this, "To be implemented.", Toast.LENGTH_SHORT).show();
+                changeRecognitionListener.setCurrentNote(adapter.getItem(info.position));
+                speechRecognizer.setRecognitionListener(changeRecognitionListener);
+                buttonVoiceAdd.setChecked(true);
                 return true;
             case R.id.delete_context:
                 adapter.remove(adapter.getItem(info.position));

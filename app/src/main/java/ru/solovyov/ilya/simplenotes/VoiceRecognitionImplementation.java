@@ -9,16 +9,22 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 // Класс обработки голосового ввода
 
 class VoiceRecognitionImplementation implements RecognitionListener {
 
     private static final String TAG = "VRecognitionListener";
+    static final int ADD_NEW_NOTE = 1; // Флаг для добавления новой заметки
+    static final int CHANGE_NOTE = 2; // Флаг для дозаписи существующей заметки
     private MainActivity parentActivity;
+    private Note currentNote; // Поле для изменения заметки
+    private int currentMode; // Режим обработки результатов голосового ввода
 
-    VoiceRecognitionImplementation(Context context) {
+    VoiceRecognitionImplementation(Context context, int flag) {
         this.parentActivity = (MainActivity) context;
+        this.currentMode = flag;
     }
 
     @Override
@@ -78,19 +84,34 @@ class VoiceRecognitionImplementation implements RecognitionListener {
         assert data != null;
         String noteText = data.get(0).toString();
         if (noteText != null) {
-            if (parentActivity.notes == null) {
-                parentActivity.notes = new ArrayList<>();
-                parentActivity.notes.add(new Note(noteText));
-                parentActivity.adapter = new NoteAdapter(parentActivity, R.layout.note_item, parentActivity.notes);
-                parentActivity.listView.setAdapter(parentActivity.adapter);
-            }
-            else {
-                parentActivity.notes.add(0, new Note(noteText));
+            // Обработка голосовой команды "Новая строка"
+            noteText = noteText.replaceAll("(?i)" + "(^|\\s)" + Pattern.quote("новая строка") + "($|\\s)", "\n");
+            switch (currentMode) {
+                case ADD_NEW_NOTE:
+                    if (parentActivity.notes == null) {
+                        parentActivity.notes = new ArrayList<>();
+                        parentActivity.notes.add(new Note(noteText));
+                        parentActivity.adapter = new NoteAdapter(parentActivity, R.layout.note_item, parentActivity.notes);
+                        parentActivity.listView.setAdapter(parentActivity.adapter);
+                    }
+                    else {
+                        parentActivity.notes.add(0, new Note(noteText));
+                    }
+                    break;
+                case CHANGE_NOTE:
+                    currentNote.addText("\n" + noteText);
+                    parentActivity.speechRecognizer.setRecognitionListener(parentActivity.addRecognitionListener);
+                    setCurrentNote(null);
+                    break;
             }
             parentActivity.adapter.notifyDataSetChanged();
         }
         parentActivity.progressBar.setVisibility(View.INVISIBLE);
         parentActivity.buttonVoiceAdd.setChecked(false);
+    }
+
+    void setCurrentNote(Note note) {
+        this.currentNote = note;
     }
 
 }

@@ -61,6 +61,7 @@ class MultiChoiceImplementation implements AbsListView.MultiChoiceModeListener {
                 }
                 actionMode.finish();
                 parentActivity.adapter.notifyDataSetChanged();
+                parentActivity.listView.smoothScrollToPosition(0);
                 Toast.makeText(parentActivity, R.string.deleted_successfully_toast, Toast.LENGTH_LONG).show();
                 return true;
             default:

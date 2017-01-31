@@ -29,6 +29,15 @@ class Note {
         this.date_last_edited = Calendar.getInstance();
     }
 
+    void addText(String text) {
+        if (this.note != null) {
+            this.note = this.note + text;
+        }
+        else {
+            this.note = text;
+        }
+    }
+
     String getText() {
         return this.note;
     }
