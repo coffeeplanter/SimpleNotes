@@ -23,10 +23,10 @@ public class EditActivity extends AppCompatActivity {
         final EditText editText = (EditText) findViewById(R.id.editText);
         final Boolean isNew;
         final int position;
-        String noteText = getIntent().getStringExtra("NOTE");
+        String noteText = getIntent().getStringExtra(MainActivity.NOTE_FLAG_INTENT);
         if (noteText != null) {
             editText.setText(noteText);
-            position = getIntent().getIntExtra("POSITION", -1);
+            position = getIntent().getIntExtra(MainActivity.NOTE_POSITION_FLAG_INTENT, -1);
             isNew = false;
         }
         else {
@@ -43,9 +43,9 @@ public class EditActivity extends AppCompatActivity {
                 String buffer = editText.getText().toString();
                 if (buffer.length() > 0) {
                     Intent intent = new Intent();
-                    intent.putExtra("NOTE", buffer);
-                    intent.putExtra("isNew", isNew);
-                    intent.putExtra("POSITION", position);
+                    intent.putExtra(MainActivity.NOTE_FLAG_INTENT, buffer);
+                    intent.putExtra(MainActivity.NOTE_NEW_FLAG_INTENT, isNew);
+                    intent.putExtra(MainActivity.NOTE_POSITION_FLAG_INTENT, position);
                     setResult(RESULT_OK, intent);
                 }
                 else {

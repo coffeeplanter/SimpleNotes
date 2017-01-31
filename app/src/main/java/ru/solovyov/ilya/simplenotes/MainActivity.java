@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     static final int FIRST_LAUNCH_MODE = 0;
     static final int CREATION_ACTIVITY_MODE = 1;
     static final int RESTORED_ACTIVITY_MODE = 2;
+    static final String NOTES_JSON_STRING = "NOTES";
+    static final String NOTE_FLAG_INTENT = "NOTE";
+    static final String NOTE_POSITION_FLAG_INTENT = "POSITION";
+    static final String NOTE_NEW_FLAG_INTENT = "ISNEW";
 
     ListView listView; // Наш список
     ToggleButton buttonVoiceAdd; // Кнопка для голосового ввода
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Устанавливаем режим создания активности
         SharedPreferences options = this.getPreferences(MODE_PRIVATE);
-        String json = options.getString("NOTES", "");
+        String json = options.getString(NOTES_JSON_STRING, "");
         if ((json.equals(""))) {
             // Приложение запускаем первый раз или если нет файла настроек
             application_mode = FIRST_LAUNCH_MODE;
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 notes = null;
                 break;
             case RESTORED_ACTIVITY_MODE:
-                json = savedInstanceState.getString("NOTES");
+                json = savedInstanceState.getString(NOTES_JSON_STRING);
             case CREATION_ACTIVITY_MODE:
                 gson = new Gson();
                 notes = gson.fromJson(json, new TypeToken<List<Note>>(){}.getType());
@@ -180,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         String json = gson.toJson(notes);
         SharedPreferences options = this.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = options.edit();
-        editor.putString("NOTES", json);
+        editor.putString(NOTES_JSON_STRING, json);
         editor.apply();
         super.onStop();
     }
@@ -197,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         Gson gson = new Gson();
         String json = gson.toJson(notes);
-        outState.putString("NOTES", json);
+        outState.putString(NOTES_JSON_STRING, json);
         super.onSaveInstanceState(outState);
     }
 
@@ -227,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.edit_context:
                 Intent intent = new Intent(this, EditActivity.class);
-                intent.putExtra("NOTE", adapter.getItem(info.position).getText());
-                intent.putExtra("POSITION", info.position);
+                intent.putExtra(NOTE_FLAG_INTENT, adapter.getItem(info.position).getText());
+                intent.putExtra(NOTE_POSITION_FLAG_INTENT, info.position);
                 startActivityForResult(intent, MainActivity.REQUEST_CODE_NOTE);
                 return true;
             case R.id.voice_edit_context:
@@ -249,9 +253,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_NOTE && data != null) {
-            String noteText = data.getStringExtra("NOTE");
-            Boolean isNew = data.getBooleanExtra("isNew", true);
-            int position = data.getIntExtra("POSITION", -1);
+            String noteText = data.getStringExtra(NOTE_FLAG_INTENT);
+            Boolean isNew = data.getBooleanExtra(NOTE_NEW_FLAG_INTENT, true);
+            int position = data.getIntExtra(NOTE_POSITION_FLAG_INTENT, -1);
             // Если создаётся новая заметка
             if (isNew) {
                 if (noteText != null) {
