@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
     NoteAdapter adapter; // экземпляр адаптера
     List<Note> notes; // Контейнер для данных
     SpeechRecognizer speechRecognizer;
-    VoiceRecognitionImplementation addRecognitionListener;
-    VoiceRecognitionImplementation changeRecognitionListener;
+    VoiceRecognitionImplementation recognitionListener;
     Intent voiceIntent;
 
     @Override
@@ -131,9 +130,8 @@ public class MainActivity extends AppCompatActivity {
         // Подготовка обработки голосового ввода
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        addRecognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.ADD_NEW_NOTE);
-        changeRecognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.CHANGE_NOTE);
-        speechRecognizer.setRecognitionListener(addRecognitionListener);
+        recognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.ADD_NEW_NOTE);
+        speechRecognizer.setRecognitionListener(recognitionListener);
 
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_linearlayout);
 
@@ -236,8 +234,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, MainActivity.REQUEST_CODE_NOTE);
                 return true;
             case R.id.voice_edit_context:
-                changeRecognitionListener.setCurrentNote(adapter.getItem(info.position));
-                speechRecognizer.setRecognitionListener(changeRecognitionListener);
+                recognitionListener.setCurrentNote(adapter.getItem(info.position));
+                recognitionListener.setCurrentMode(VoiceRecognitionImplementation.CHANGE_NOTE);
                 buttonVoiceAdd.setChecked(true);
                 return true;
             case R.id.delete_context:

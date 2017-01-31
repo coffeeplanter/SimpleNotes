@@ -19,8 +19,8 @@ class VoiceRecognitionImplementation implements RecognitionListener {
     static final int ADD_NEW_NOTE = 1; // Флаг для добавления новой заметки
     static final int CHANGE_NOTE = 2; // Флаг для дозаписи существующей заметки
     private MainActivity parentActivity;
-    private Note currentNote; // Поле для изменения заметки
-    private int currentMode; // Режим обработки результатов голосового ввода
+    private Note currentNote; // Поле для хранения изменяемой заметки
+    private int currentMode; // Режим обработки результатов голосового ввода (дополнение заметки или ввод новой)
 
     VoiceRecognitionImplementation(Context context, int flag) {
         this.parentActivity = (MainActivity) context;
@@ -100,7 +100,7 @@ class VoiceRecognitionImplementation implements RecognitionListener {
                     break;
                 case CHANGE_NOTE:
                     currentNote.addText("\n" + noteText);
-                    parentActivity.speechRecognizer.setRecognitionListener(parentActivity.addRecognitionListener);
+                    setCurrentMode(ADD_NEW_NOTE);
                     setCurrentNote(null);
                     break;
             }
@@ -112,6 +112,10 @@ class VoiceRecognitionImplementation implements RecognitionListener {
 
     void setCurrentNote(Note note) {
         this.currentNote = note;
+    }
+
+    void setCurrentMode(int mode) {
+        this.currentMode = mode;
     }
 
 }
