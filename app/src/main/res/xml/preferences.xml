@@ -3,54 +3,54 @@
     android:background="@color/colorBackground">
 
     <PreferenceCategory
-        android:title="Настройки внешнего вида">
+        android:title="@string/settings_appearance">
 
         <ListPreference
             android:key="notes_text_size"
-            android:title="Размер шрифта"
-            android:summary="Установка размера шрифта заметок"
+            android:title="@string/settings_font_size"
+            android:summary="@string/settings_font_size_summary"
             android:defaultValue="textAppearanceMedium"
-            android:dialogTitle="Выберите размер шрифта"
+            android:dialogTitle="@string/settings_font_size_dialog"
             android:entries="@array/notes_text_size"
             android:entryValues="@array/notes_text_size_values"/>
 
         <ListPreference
             android:key="notes_sort"
-            android:title="Сортировка заметок"
-            android:summary="Установка критерия сортировки заметок"
+            android:title="@string/settings_notes_sort"
+            android:summary="@string/settings_notes_sort_summary"
             android:defaultValue="0"
-            android:dialogTitle="Выберите критерий сортировки"
+            android:dialogTitle="@string/settings_notes_sort_dialog"
             android:entries="@array/notes_sort"
             android:entryValues="@array/notes_sort_values"/>
 
         <ListPreference
             android:key="notes_sort_order"
-            android:title="Порядок сортировки"
-            android:summary="Установка порядка сортировки заметок"
+            android:title="@string/settings_notes_sort_order"
+            android:summary="@string/settings_notes_sort_order_summary"
             android:defaultValue="0"
-            android:dialogTitle="Выберите порядок сортировки"
+            android:dialogTitle="@string/settings_notes_sort_order_dialog"
             android:entries="@array/notes_sort_order"
             android:entryValues="@array/notes_sort_order_values"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Настройки голосового ввода">
+        android:title="@string/settings_voice_input">
 
         <ListPreference
             android:key="voice_process_method"
-            android:title="Запись голосового ввода"
-            android:summary="Действие после распознавания"
+            android:title="@string/settings_voice_process_method"
+            android:summary="@string/settings_voice_process_method_summary"
             android:defaultValue="0"
-            android:dialogTitle="Выберите, как обработать результат голосового ввода"
+            android:dialogTitle="settings_voice_process_method_dialog"
             android:entries="@array/voice_process_method"
             android:entryValues="@array/voice_process_method_values"/>
 
         <EditTextPreference
             android:key="voice_input_timeout"
-            android:title="Время ожидания"
-            android:summary="Время ожидания голосового ввода в секундах от 1 до 120"
-            android:dialogTitle="Введите время в секундах от 1 до 120"
+            android:title="@string/settings_voice_input_timeout"
+            android:summary="@string/settings_voice_input_timeout_summary"
+            android:dialogTitle="@string/settings_voice_input_timeout_dialog"
             android:defaultValue="10" />
 
     </PreferenceCategory>

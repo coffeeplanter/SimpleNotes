@@ -28,4 +28,30 @@
     <string name="about_application">О приложении</string>
     <string name="settings">Настройки</string>
     <string name="about_app_text">"Это приложение позволяет Вам хранить заметки, добавляя и изменяя их с помощью клавиатуры или голосового ввода.\n\nПриложение написано Ильёй Соловьёвым с целью освоения разработки под среду Android. Оно абсолютно бесплатно, без рекламы, и распространяется на условиях лицензии GNU 3.0.\n\nПрисылайте любые замечания на почту: <a href="mailto:is3k@ya.ru">is3k@ya.ru"</a>.</string>
+    <string name="notes_text_size_small_array">Мелкий</string>
+    <string name="notes_text_size_medium_array">Средний</string>
+    <string name="notes_text_size_large_array">Крупный</string>
+    <string name="notes_sort_by_last_edited_array">По дате изменения</string>
+    <string name="notes_sort_by_created_array">По дате создания</string>
+    <string name="notes_sort_order_desc_array">По возрастанию</string>
+    <string name="notes_sort_order_asc_array">По убыванию</string>
+    <string name="voice_process_method_list_array">Сохранить в списке</string>
+    <string name="voice_process_method_editor_array">Открыть в редакторе</string>
+    <string name="settings_title">Настройки внешнего вида</string>
+    <string name="settings_font_size">Размер шрифта</string>
+    <string name="settings_font_size_summary">Установка размера шрифта списка заметок</string>
+    <string name="settings_font_size_dialog">Выберите размер шрифта</string>
+    <string name="settings_notes_sort">Сортировка заметок</string>
+    <string name="settings_notes_sort_summary">Установка критерия сортировки</string>
+    <string name="settings_notes_sort_dialog">Выберите критерий сортировки</string>
+    <string name="settings_notes_sort_order">Порядок сортировки</string>
+    <string name="settings_notes_sort_order_summary">Установка порядка сортировки</string>
+    <string name="settings_notes_sort_order_dialog">Выберите порядок сортировки</string>
+    <string name="settings_voice_input">Настройки голосового ввода</string>
+    <string name="settings_voice_process_method">Обработка голосового ввода</string>
+    <string name="settings_voice_process_method_summary">Выберите действие после распознавания</string>
+    <string name="settings_voice_process_method_dialog">Выберите действие</string>
+    <string name="settings_voice_input_timeout">Время ожидания</string>
+    <string name="settings_voice_input_timeout_summary">Установка времени ожидания голосового ввода от 1 до 120 сек.</string>
+    <string name="settings_voice_input_timeout_dialog">Выберите время ожидания(1&#8230;120)</string>
 </resources>
