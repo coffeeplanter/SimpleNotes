@@ -19,7 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name="ru.solovyov.ilya.simplenotes.EditActivity"
-            >
+            android:configChanges="orientation|screenSize" >
+        </activity>
+        <activity android:name="ru.solovyov.ilya.simplenotes.AboutActivity"
+            android:configChanges="orientation|screenSize" >
+        </activity>
+        <activity android:name="ru.solovyov.ilya.simplenotes.SettingsActivity"
+            android:configChanges="orientation|screenSize" >
         </activity>
     </application>
 

@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.Voice;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 // Класс главной активности со списком заметок
 
@@ -66,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Устанавливаем разметку
         setContentView(R.layout.activity_main);
+
+        // Проверка и удаление настроек из SettingsActivity
+//        SharedPreferences def = PreferenceManager.getDefaultSharedPreferences(this);
+//        def.edit().clear().commit();
+//        Map<String, ?> all = def.getAll();
+//        for (Map.Entry<String, ?> entry : all.entrySet()) {
+//            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+//        }
 
         // Устанавливаем режим создания активности
         SharedPreferences options = this.getPreferences(MODE_PRIVATE);
@@ -166,6 +176,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        Log.d(TAG, "onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPause");
+        super.onPause();
+    }
+
     // Сохраняем список заметок в настройках
     @Override
     protected void onStop() {
@@ -190,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onStop");
+        Log.d(TAG, "onDestroy");
         speechRecognizer.destroy();
         super.onDestroy();
     }
@@ -205,10 +233,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.open_settings_activity:
-                Toast.makeText(this, "Настройки в процессе разработки", Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             case R.id.open_activity_about:
-                Toast.makeText(this, "Раздел в процессе разработки", Toast.LENGTH_SHORT).show();
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
