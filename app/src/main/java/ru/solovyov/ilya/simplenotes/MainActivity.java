@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.Voice;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     static final String NOTE_FLAG_INTENT = "NOTE";
     static final String NOTE_POSITION_FLAG_INTENT = "POSITION";
     static final String NOTE_NEW_FLAG_INTENT = "ISNEW";
+    static final int VOICE_PROCESS_LIST = 0;
+    static final int VOICE_PROCESS_EDITOR = 1;
 
     ListView listView; // Наш список
     ToggleButton buttonVoiceAdd; // Кнопка для голосового ввода
@@ -57,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
     SpeechRecognizer speechRecognizer;
     VoiceRecognitionImplementation recognitionListener;
     Intent voiceIntent;
+    static int noteTextAppearance = android.R.style.TextAppearance_Medium;
+    static boolean isEditedDate = true;
+    static int voiceTimeout = 10000;
+    static int voiceProcessMethod = VOICE_PROCESS_LIST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Устанавливаем разметку
         setContentView(R.layout.activity_main);
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Проверка и удаление настроек из SettingsActivity
 //        SharedPreferences def = PreferenceManager.getDefaultSharedPreferences(this);
@@ -141,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         // Подготовка обработки голосового ввода
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        recognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.ADD_NEW_NOTE);
+        recognitionListener = new VoiceRecognitionImplementation(this, VoiceRecognitionImplementation.ADD_NEW_NOTE_LIST);
         speechRecognizer.setRecognitionListener(recognitionListener);
 
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_linearlayout);
@@ -151,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         voiceIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         voiceIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
         voiceIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
-        voiceIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 10000);
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, voiceTimeout);
         //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "de"); // Установка других языков
 
         // Назначаем слушатель кнопке голосового добавления заметки
@@ -168,7 +177,17 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     linearLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorBackground));
                     speechRecognizer.stopListening();
-                    listView.smoothScrollToPosition(0);
+                    SharedPreferences optionsFromSettingsActivity = PreferenceManager.getDefaultSharedPreferences(buttonView.getContext());
+                    sortNotes(notes, optionsFromSettingsActivity);
+                    adapter.notifyDataSetChanged();
+                    Log.d(TAG, "Лист: " + ((Note)(listView.getItemAtPosition(0))).getText());
+                    listView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.smoothScrollToPosition(0);
+                            listView.setSelection(0);
+                        }
+                    });
                     Toast.makeText(MainActivity.this, R.string.voice_listening_stopped_toast, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -185,6 +204,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume");
+        SharedPreferences optionsFromSettingsActivity = PreferenceManager.getDefaultSharedPreferences(this);
+        switch (optionsFromSettingsActivity.getString("notes_text_size", "1")) {
+            case "textAppearanceSmall":
+                noteTextAppearance = android.R.style.TextAppearance_Small;
+                break;
+            case "textAppearanceMedium":
+                noteTextAppearance = android.R.style.TextAppearance_Medium;
+                break;
+            case "textAppearanceLarge":
+                noteTextAppearance = android.R.style.TextAppearance_Large;
+                break;
+        }
+        sortNotes(notes, optionsFromSettingsActivity);
+        switch (Integer.parseInt(optionsFromSettingsActivity.getString("voice_process_method", "0"))) {
+            case VOICE_PROCESS_LIST:
+                voiceProcessMethod = VOICE_PROCESS_LIST;
+                recognitionListener.setCurrentMode(VoiceRecognitionImplementation.ADD_NEW_NOTE_LIST);
+                break;
+            case VOICE_PROCESS_EDITOR:
+                voiceProcessMethod = VOICE_PROCESS_EDITOR;
+                recognitionListener.setCurrentMode(VoiceRecognitionImplementation.ADD_NEW_NOTE_EDITOR);
+                break;
+        }
+        voiceTimeout = getVoiceTimeout(optionsFromSettingsActivity);
+        adapter.notifyDataSetChanged();
         super.onResume();
     }
 
@@ -198,15 +242,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         Log.d(TAG, "onStop");
-        // Сортируем коллекцию по убыванию даты
-        if (notes != null) {
-            Collections.sort(notes, new Comparator<Note>() {
-                @Override
-                public int compare(Note note, Note t1) {
-                    return t1.getLastEditedDate().compareTo(note.getLastEditedDate());
-                }
-            });
-        }
         Gson gson = new Gson();
         String json = gson.toJson(notes);
         SharedPreferences options = this.getPreferences(MODE_PRIVATE);
@@ -286,7 +321,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.voice_edit_context:
                 recognitionListener.setCurrentNote(adapter.getItem(info.position));
-                recognitionListener.setCurrentMode(VoiceRecognitionImplementation.CHANGE_NOTE);
+                if (voiceProcessMethod == VOICE_PROCESS_EDITOR) {
+                    recognitionListener.setCurrentMode(VoiceRecognitionImplementation.CHANGE_NOTE_EDITOR);
+                    recognitionListener.setCurrentNotePosition(info.position);
+                }
+                else {
+                    recognitionListener.setCurrentMode(VoiceRecognitionImplementation.CHANGE_NOTE_LIST);
+                }
                 buttonVoiceAdd.setChecked(true);
                 return true;
             case R.id.delete_context:
@@ -319,26 +360,93 @@ public class MainActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
                     Toast.makeText(this, R.string.note_added_toast, Toast.LENGTH_SHORT).show();
-                    listView.smoothScrollToPosition(0);
+                    listView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.smoothScrollToPosition(0);
+                            listView.setSelection(0);
+                        }
+                    });
                 }
             }
             // Если редактируется существующая заметка
             else {
                 adapter.getItem(position).setText(noteText);
-                if (notes != null) {
-                    Collections.sort(notes, new Comparator<Note>() {
+                adapter.notifyDataSetChanged();
+                Toast.makeText(this, R.string.note_edited_toast, Toast.LENGTH_SHORT).show();
+                listView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.smoothScrollToPosition(0);
+                        listView.setSelection(0);
+                    }
+                });
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    // Сортировка заметок в зависимости от настроек
+    List<Note> sortNotes(List<Note> notesList, SharedPreferences options) {
+        if (notesList != null) {
+            if (Integer.parseInt(options.getString("notes_sort", "0")) == 0) {
+                isEditedDate = true;
+                if (Integer.parseInt(options.getString("notes_sort_order", "0")) == 0) {
+                    Collections.sort(notesList, new Comparator<Note>() {
                         @Override
                         public int compare(Note note, Note t1) {
                             return t1.getLastEditedDate().compareTo(note.getLastEditedDate());
                         }
                     });
                 }
-                adapter.notifyDataSetChanged();
-                Toast.makeText(this, R.string.note_edited_toast, Toast.LENGTH_SHORT).show();
-                listView.smoothScrollToPosition(0);
+                else if (Integer.parseInt(options.getString("notes_sort_order", "0")) == 1) {
+                    Collections.sort(notesList, new Comparator<Note>() {
+                        @Override
+                        public int compare(Note note, Note t1) {
+                            return note.getLastEditedDate().compareTo(t1.getLastEditedDate());
+                        }
+                    });
+                }
+            }
+            else if (Integer.parseInt(options.getString("notes_sort", "0")) == 1) {
+                isEditedDate = false;
+                if (Integer.parseInt(options.getString("notes_sort_order", "0")) == 0) {
+                    Collections.sort(notesList, new Comparator<Note>() {
+                        @Override
+                        public int compare(Note note, Note t1) {
+                            return t1.getCreatedDate().compareTo(note.getCreatedDate());
+                        }
+                    });
+                }
+                else if (Integer.parseInt(options.getString("notes_sort_order", "0")) == 1) {
+                    Collections.sort(notesList, new Comparator<Note>() {
+                        @Override
+                        public int compare(Note note, Note t1) {
+                            return note.getCreatedDate().compareTo(t1.getCreatedDate());
+                        }
+                    });
+                }
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
+        return notesList;
+    }
+
+    // Установка таймаута голосового ввода в зависимости от настроек
+    private int getVoiceTimeout(SharedPreferences options) {
+        String timeoutString = options.getString("voice_input_timeout", "10");
+        try {
+            int timeout = Integer.parseInt(timeoutString);
+            if (timeout <= 0) {
+                return 10000;
+            }
+            else if (timeout > 120) {
+                return 120000;
+            }
+            return timeout * 1000;
+        }
+        catch (NumberFormatException nfe) {
+            return 10000;
+        }
     }
 
 }

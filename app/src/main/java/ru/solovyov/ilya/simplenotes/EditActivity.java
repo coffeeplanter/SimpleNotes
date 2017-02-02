@@ -22,16 +22,16 @@ public class EditActivity extends AppCompatActivity {
 
         final EditText editText = (EditText) findViewById(R.id.editText);
         final Boolean isNew;
-        final int position;
+        final int position = getIntent().getIntExtra(MainActivity.NOTE_POSITION_FLAG_INTENT, -1);
         String noteText = getIntent().getStringExtra(MainActivity.NOTE_FLAG_INTENT);
-        if (noteText != null) {
-            editText.setText(noteText);
-            position = getIntent().getIntExtra(MainActivity.NOTE_POSITION_FLAG_INTENT, -1);
+        if (position != -1) {
             isNew = false;
         }
         else {
-            position = -1;
             isNew = true;
+        }
+        if (noteText != null) {
+            editText.setText(noteText);
         }
 
         Button btnSave = (Button) findViewById(R.id.save_button);

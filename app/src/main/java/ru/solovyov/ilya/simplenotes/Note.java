@@ -32,6 +32,7 @@ class Note {
     void addText(String text) {
         if (this.note != null) {
             this.note = this.note + text;
+            this.date_last_edited = Calendar.getInstance();
         }
         else {
             this.note = text;
@@ -53,6 +54,11 @@ class Note {
     String getLastEditedFormattedDate() {
         SimpleDateFormat formattedDate= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         return SimpleNotesApplication.getResourceStringNoteDateLastEdited() + formattedDate.format(date_last_edited.getTime());
+    }
+
+    String getCreatedFormattedDate() {
+        SimpleDateFormat formattedDate= new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        return SimpleNotesApplication.getResourceStringNoteDateCreated() + formattedDate.format(date_created.getTime());
     }
 
 }

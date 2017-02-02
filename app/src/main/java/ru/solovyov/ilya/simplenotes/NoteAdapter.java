@@ -2,6 +2,7 @@ package ru.solovyov.ilya.simplenotes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +31,8 @@ class NoteAdapter extends ArrayAdapter<Note> {
     }
 
     private static class ViewHolder {
-        TextView note;
-        TextView date_last_edited;
+        TextView note_text;
+        TextView date;
     }
 
     @NonNull
@@ -45,18 +46,34 @@ class NoteAdapter extends ArrayAdapter<Note> {
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
             convertView = inflater.inflate(resourceId, parent, false);
             ViewHolder viewHolder = new ViewHolder();
-            viewHolder.note = (TextView) convertView.findViewById(R.id.note);
-            viewHolder.date_last_edited = (TextView) convertView.findViewById(R.id.date_last_edited);
+            viewHolder.note_text = (TextView) convertView.findViewById(R.id.note);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.date_last_edited);
             convertView.setTag(viewHolder);
         }
 
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 
         assert note != null;
-        viewHolder.note.setText(note.getText());
-        viewHolder.date_last_edited.setText(note.getLastEditedFormattedDate());
+        viewHolder.note_text.setText(note.getText());
+        setTextAppearance(parent.getContext(), viewHolder.note_text, MainActivity.noteTextAppearance);
+        if (MainActivity.isEditedDate) {
+            viewHolder.date.setText(note.getLastEditedFormattedDate());
+        }
+        else {
+            viewHolder.date.setText(note.getCreatedFormattedDate());
+        }
 
         return convertView;
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setTextAppearance(Context context, TextView textView, int resId) {
+        if (Build.VERSION.SDK_INT < 23) {
+            textView.setTextAppearance(context, resId);
+        }
+        else {
+            textView.setTextAppearance(resId);
+        }
     }
 
 }

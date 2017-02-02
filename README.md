@@ -9,10 +9,9 @@ Ths is a simple Android notes editor.
 * Voice input.
 * Voice commands in Russian ("Новая строка", Точка", "Запятая", "Восклицательный знак", "Вопросительный знак", "Пробел").
 * Nice interface.
+* Settings (font size, sorting, action after voice recognition, voice input timeout).
 
 ## TODO list
-
-* Settings activity.
 * Voice input in various languages.
 * UI improvements.
 * Confirm dialogs.

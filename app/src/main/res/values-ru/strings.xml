@@ -17,6 +17,7 @@
     <string name="no_text_was_entered_toast">Ничего не было введено</string>
     <string name="note_added_toast">Заметка добавлена</string>
     <string name="note_date_last_edited">"Изменено: "</string>
+    <string name="note_date_created">"Создано: "</string>
     <string name="notes_selected_number">"Выбрано заметок: "</string>
     <string name="note_deleted_toast">Заметка удалена</string>
     <string name="voice_listening_stopped_toast">Голосовой ввод прекращён</string>

@@ -9,7 +9,7 @@
             android:key="notes_text_size"
             android:title="Размер шрифта"
             android:summary="Установка размера шрифта заметок"
-            android:defaultValue="1"
+            android:defaultValue="textAppearanceMedium"
             android:dialogTitle="Выберите размер шрифта"
             android:entries="@array/notes_text_size"
             android:entryValues="@array/notes_text_size_values"/>
@@ -18,7 +18,8 @@
             android:key="notes_sort"
             android:title="Сортировка заметок"
             android:summary="Установка критерия сортировки заметок"
-            android:defaultValue="1"
+            android:defaultValue="0"
+            android:dialogTitle="Выберите критерий сортировки"
             android:entries="@array/notes_sort"
             android:entryValues="@array/notes_sort_values"/>
 
@@ -26,7 +27,8 @@
             android:key="notes_sort_order"
             android:title="Порядок сортировки"
             android:summary="Установка порядка сортировки заметок"
-            android:defaultValue="1"
+            android:defaultValue="0"
+            android:dialogTitle="Выберите порядок сортировки"
             android:entries="@array/notes_sort_order"
             android:entryValues="@array/notes_sort_order_values"/>
 
@@ -36,17 +38,19 @@
         android:title="Настройки голосового ввода">
 
         <ListPreference
-            android:key="voice_recognition_method"
+            android:key="voice_process_method"
             android:title="Запись голосового ввода"
             android:summary="Действие после распознавания"
-            android:defaultValue="1"
-            android:entries="@array/voice_recognition_method"
-            android:entryValues="@array/voice_recognition_method_values"/>
+            android:defaultValue="0"
+            android:dialogTitle="Выберите, как обработать результат голосового ввода"
+            android:entries="@array/voice_process_method"
+            android:entryValues="@array/voice_process_method_values"/>
 
         <EditTextPreference
             android:key="voice_input_timeout"
             android:title="Время ожидания"
-            android:summary="Время ожидания голосового ввода в секундах"
+            android:summary="Время ожидания голосового ввода в секундах от 1 до 120"
+            android:dialogTitle="Введите время в секундах от 1 до 120"
             android:defaultValue="10" />
 
     </PreferenceCategory>
