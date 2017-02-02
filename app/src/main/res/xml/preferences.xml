@@ -42,16 +42,9 @@
             android:title="@string/settings_voice_process_method"
             android:summary="@string/settings_voice_process_method_summary"
             android:defaultValue="0"
-            android:dialogTitle="settings_voice_process_method_dialog"
+            android:dialogTitle="@string/settings_voice_process_method_dialog"
             android:entries="@array/voice_process_method"
             android:entryValues="@array/voice_process_method_values"/>
-
-        <EditTextPreference
-            android:key="voice_input_timeout"
-            android:title="@string/settings_voice_input_timeout"
-            android:summary="@string/settings_voice_input_timeout_summary"
-            android:dialogTitle="@string/settings_voice_input_timeout_dialog"
-            android:defaultValue="10" />
 
     </PreferenceCategory>
 

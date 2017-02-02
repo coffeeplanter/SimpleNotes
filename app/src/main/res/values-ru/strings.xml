@@ -37,7 +37,7 @@
     <string name="notes_sort_order_asc_array">По убыванию</string>
     <string name="voice_process_method_list_array">Сохранить в списке</string>
     <string name="voice_process_method_editor_array">Открыть в редакторе</string>
-    <string name="settings_title">Настройки внешнего вида</string>
+    <string name="settings_appearance">Настройки внешнего вида</string>
     <string name="settings_font_size">Размер шрифта</string>
     <string name="settings_font_size_summary">Установка размера шрифта списка заметок</string>
     <string name="settings_font_size_dialog">Выберите размер шрифта</string>

@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             // Активность воссоздана после уничтожения системой
             application_mode = RESTORED_ACTIVITY_MODE;
         }
-        Log.d(TAG, "applicaion_mode: " + application_mode);
+        Log.d(TAG, "application_mode: " + application_mode);
 
         // Получаем экземпляр элемента ListView
         listView = (ListView)findViewById(android.R.id.list);
@@ -110,14 +110,19 @@ public class MainActivity extends AppCompatActivity {
 
         switch (application_mode) {
             case FIRST_LAUNCH_MODE:
-                notes = null;
+                notes = new ArrayList<>();
                 break;
             case RESTORED_ACTIVITY_MODE:
                 json = savedInstanceState.getString(NOTES_JSON_STRING);
             case CREATION_ACTIVITY_MODE:
                 gson = new Gson();
                 notes = gson.fromJson(json, new TypeToken<List<Note>>(){}.getType());
+                if (notes == null) {
+                    notes = new ArrayList<>();
+                }
+                Log.d(TAG, "notes: " + notes.toString());
                 adapter = new NoteAdapter(this, R.layout.note_item, notes);
+                Log.d(TAG, "adapter: " + adapter.toString());
                 listView.setAdapter(adapter);
                 break;
         }
@@ -160,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         voiceIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         voiceIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
         voiceIntent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3);
-        voiceIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, voiceTimeout);
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, voiceTimeout); // Похоже, этот параметр не работает
         //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "de"); // Установка других языков
 
         // Назначаем слушатель кнопке голосового добавления заметки
@@ -171,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     linearLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorVoiceRecording));
+                    Log.d(TAG, "" + voiceTimeout);
                     speechRecognizer.startListening(voiceIntent);
-                    Log.d(TAG, "onResults");
                 }
                 else {
                     linearLayout.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorBackground));
@@ -180,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences optionsFromSettingsActivity = PreferenceManager.getDefaultSharedPreferences(buttonView.getContext());
                     sortNotes(notes, optionsFromSettingsActivity);
                     adapter.notifyDataSetChanged();
-                    Log.d(TAG, "Лист: " + ((Note)(listView.getItemAtPosition(0))).getText());
                     listView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -227,8 +231,10 @@ public class MainActivity extends AppCompatActivity {
                 recognitionListener.setCurrentMode(VoiceRecognitionImplementation.ADD_NEW_NOTE_EDITOR);
                 break;
         }
-        voiceTimeout = getVoiceTimeout(optionsFromSettingsActivity);
-        adapter.notifyDataSetChanged();
+//        voiceTimeout = getVoiceTimeout(optionsFromSettingsActivity); // Отключено
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
         super.onResume();
     }
 
