@@ -184,7 +184,9 @@ public class MainActivity extends AppCompatActivity {
                     speechRecognizer.stopListening();
                     SharedPreferences optionsFromSettingsActivity = PreferenceManager.getDefaultSharedPreferences(buttonView.getContext());
                     sortNotes(notes, optionsFromSettingsActivity);
-                    adapter.notifyDataSetChanged();
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
                     listView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -364,7 +366,9 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         notes.add(0, new Note(noteText));
                     }
-                    adapter.notifyDataSetChanged();
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
                     Toast.makeText(this, R.string.note_added_toast, Toast.LENGTH_SHORT).show();
                     listView.post(new Runnable() {
                         @Override
